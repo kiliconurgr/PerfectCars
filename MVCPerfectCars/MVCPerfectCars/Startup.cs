@@ -1,9 +1,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MVCPerfectCars.Service;
+using MVCPerfectCarsData;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +27,16 @@ namespace MVCPerfectCars
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddDbContext<MVCPerfectCarsDbContext>(optionsAction=> 
+            {
+                optionsAction.UseSqlServer(Configuration.GetConnectionString("SqlServer"));
+            });
+            services.AddIdentity<User, Role>(optionAction => { 
+
+
+            }).AddEntityFrameworkStores<MVCPerfectCarsDbContext>();
+
+            services.AddScoped<IAccountService, AccountService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,8 +57,10 @@ namespace MVCPerfectCars
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
-
+            app.ApplicationServices.CreateScope().ServiceProvider.GetRequiredService<MVCPerfectCarsDbContext>().Database.Migrate();
+            app.ApplicationServices.CreateScope().ServiceProvider.GetRequiredService<IAccountService>().InitAsync().Wait();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

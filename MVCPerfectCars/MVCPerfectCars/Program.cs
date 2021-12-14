@@ -13,6 +13,7 @@ namespace MVCPerfectCars
     {
         public static void Main(string[] args)
         {
+           
             CreateHostBuilder(args).Build().Run();
         }
 
@@ -20,6 +21,7 @@ namespace MVCPerfectCars
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+
                     webBuilder.UseStartup<Startup>();
                 });
     }
