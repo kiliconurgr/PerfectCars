@@ -28,16 +28,19 @@ namespace MVCPerfectCars.Service
         private readonly IConfiguration configuration;
         private readonly UserManager<User> userManager;
         private readonly RoleManager<Role> roleManager;
+        private readonly SignInManager<User> signInManager;
 
         public AccountService(
             IConfiguration configuration,
             UserManager<User> userManager,
-            RoleManager<Role> roleManager
+            RoleManager<Role> roleManager,
+            SignInManager<User> signInManager
             )
         {
             this.configuration = configuration;
             this.userManager = userManager;
             this.roleManager = roleManager;
+            this.signInManager = signInManager;
         }
 
         public Task<IdentityResult> ChangePasswordAsync(ChangePasswordViewModel model)
@@ -66,7 +69,9 @@ namespace MVCPerfectCars.Service
                 user = new User
                 {
                     Name = configuration.GetValue<string>("App:Security:Name"),
-                    UserName = configuration.GetValue<string>("App:Security:UserName")
+                    UserName = configuration.GetValue<string>("App:Security:UserName"),
+                    Enabled= true,
+                    EmailConfirmed =true,
                     
                 };
 
@@ -79,9 +84,9 @@ namespace MVCPerfectCars.Service
 
         }
 
-        public Task<SignInResult> LoginAsync(LoginViewModel model)
+        public async Task<SignInResult> LoginAsync(LoginViewModel model)
         {
-            throw new NotImplementedException();
+            return await signInManager.PasswordSignInAsync(model.UserName, model.Password, model.IsPersistent, true);
         }
 
         public Task LogoutAsync()

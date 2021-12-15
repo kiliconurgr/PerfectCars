@@ -1,0 +1,39 @@
+﻿@model LoginViewModel
+@{
+    Layout = "_LayoutEmpty";
+}
+
+
+<div class="h-100 d-flex justify-content-center align-items-center bg-light">
+    <form method="post">
+        <div class="card shadow">
+            <div class="card-header">
+                <h4 class="text-center">Kullanıcı Girişi</h4>
+            </div>
+            <div class="card-body">
+                <div class="text-center mb-2">
+                    <i class="fa fa-5x fa-user-circle"></i>
+                </div>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="mb-3">
+                    <input type="email" class="form-control" asp-for="UserName" placeholder="@Html.DisplayNameFor(p=>p.UserName)" />
+                    <span asp-validation-for="UserName"></span>
+                </div>
+                <div class="mb-3">
+                    <input type="password" class="form-control" asp-for="Password" placeholder="@Html.DisplayNameFor(p=>p.Password)" />
+                    <span asp-validation-for="Password"></span>
+                </div>
+                
+
+
+                <button type="submit" class="btn btn-primary">
+                    Giriş Yap
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

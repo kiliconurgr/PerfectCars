@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVCPerfectCarsData.Migrations
 {
     [DbContext(typeof(MVCPerfectCarsDbContext))]
-    [Migration("20211214141206_Starwars")]
+    [Migration("20211215135142_Starwars")]
     partial class Starwars
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
