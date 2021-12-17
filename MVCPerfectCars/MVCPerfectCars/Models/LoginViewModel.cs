@@ -17,7 +17,7 @@ namespace MVCPerfectCars.Models
         [Required(ErrorMessage = "{0} alanı boş bırakılamaz!")]
         public string Password { get; set; }
 
-
+        
 
         public bool IsPersistent { get; set; }
 

@@ -40,7 +40,7 @@ namespace MVCPerfectCars
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, MVCPerfectCarsDbContext context)
         {
             if (env.IsDevelopment())
             {
@@ -71,6 +71,10 @@ namespace MVCPerfectCars
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            context.Database.Migrate();
+
+
         }
     }
 }

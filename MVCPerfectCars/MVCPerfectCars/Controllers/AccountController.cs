@@ -36,14 +36,16 @@ namespace MVCPerfectCars.Controllers
             var result = await accountService.LoginAsync(model);
             if (result.Succeeded)
             {
-                return RedirectToAction(model.ReturnUrl ?? "/");
+                return Redirect("/admin");
             }
             else
             {
                 ModelState.AddModelError("", "Geçersiz kullanıcı girişi");
                 return View(model);
             }
-            
+                     
+
+
         }
 
 
