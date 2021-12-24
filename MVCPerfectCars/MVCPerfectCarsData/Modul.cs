@@ -12,6 +12,7 @@ namespace MVCPerfectCarsData
 
     {
         public string Name { get; set; }
+        public int BrandId { get; set; }
 
         public int VehicleTypeId { get; set; }
 
@@ -33,6 +34,9 @@ namespace MVCPerfectCarsData
     {
         public void Configure(EntityTypeBuilder<Modul> builder)
         {
+            builder
+                .HasIndex(p => new { p.Name, p.BrandId })
+                .IsUnique(true);
             builder
                 .HasIndex(p => new { p.Name, p.VehicleTypeId })
                 .IsUnique(true);

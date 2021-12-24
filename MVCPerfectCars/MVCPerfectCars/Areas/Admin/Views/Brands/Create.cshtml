@@ -1,0 +1,33 @@
+﻿@model Brand
+@{
+    ViewData["Title"] = "Marka Ekleme";
+
+}
+
+
+<div class="card">
+
+    <div class="card-body">
+      
+        <form method="post">
+
+            <div class="row">
+                <div class="col-12 col-md-6 form-group">
+                    <label asp-for="Name"></label>
+                    <input type="text" class="form-control" asp-for="Name" />
+                    <span asp-validation-for="Name"></span>
+                </div>
+            </div>
+
+        </form>
+    
+    
+    
+    
+    </div>
+    </div>
+
+@section{
+
+<partial name="_ValidationScriptsPartial"/>
+}

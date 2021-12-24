@@ -82,7 +82,7 @@ namespace MVCPerfectCarsData.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Brand");
+                    b.ToTable("Brands");
                 });
 
             modelBuilder.Entity("MVCPerfectCarsData.Modul", b =>
@@ -92,7 +92,7 @@ namespace MVCPerfectCarsData.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("BrandId")
+                    b.Property<int>("BrandId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DateOfCreation")
@@ -114,6 +114,9 @@ namespace MVCPerfectCarsData.Migrations
                     b.HasIndex("BrandId");
 
                     b.HasIndex("VehicleTypeId");
+
+                    b.HasIndex("Name", "BrandId")
+                        .IsUnique();
 
                     b.HasIndex("Name", "VehicleTypeId")
                         .IsUnique();
@@ -155,7 +158,7 @@ namespace MVCPerfectCarsData.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Portfolio");
+                    b.ToTable("Portfolios");
                 });
 
             modelBuilder.Entity("MVCPerfectCarsData.Role", b =>
@@ -524,7 +527,9 @@ namespace MVCPerfectCarsData.Migrations
                 {
                     b.HasOne("MVCPerfectCarsData.Brand", "Brand")
                         .WithMany("Moduls")
-                        .HasForeignKey("BrandId");
+                        .HasForeignKey("BrandId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("MVCPerfectCarsData.VehicleType", "VehicleType")
                         .WithMany("Moduls")

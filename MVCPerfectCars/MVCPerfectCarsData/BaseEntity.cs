@@ -14,6 +14,9 @@ namespace MVCPerfectCarsData
         [Display(Name = "Etkin")]
         public bool Enabled { get; set; }
 
+
+        [Display(Name = "Oluşturulma Tarihi")]
+        [Required(ErrorMessage = "{0} alanı boş bırakılamaz")]
         public DateTime DateOfCreation { get; set; }
 
     }

@@ -25,13 +25,13 @@ namespace MVCPerfectCarsData
 
         public virtual DbSet<Brand> Brands { get; set; }
 
-        public virtual DbSet<Brand> Banner { get; set; }
+        public virtual DbSet<Banner> Banner { get; set; }
 
         public virtual DbSet<Modul> Moduls { get; set; }
 
         public virtual DbSet<Portfolio> Portfolios { get; set; }
 
-        public virtual DbSet<Portfolio> Representative { get; set; }
+        public virtual DbSet<Representative> Representative { get; set; }
 
         public virtual DbSet<Vehicle> Vehicles { get; set; }
 
