@@ -63,6 +63,7 @@ namespace MVCPerfectCars
             app.ApplicationServices.CreateScope().ServiceProvider.GetRequiredService<IAccountService>().InitAsync().Wait();
             app.UseEndpoints(endpoints =>
             {
+                
                 endpoints.MapControllerRoute(
                      name: "areas",
                      pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVCPerfectCarsData.Migrations
 {
     [DbContext(typeof(MVCPerfectCarsDbContext))]
-    [Migration("20211222134709_Ankara")]
-    partial class Ankara
+    [Migration("20220103140004_Urfa")]
+    partial class Urfa
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -72,7 +72,7 @@ namespace MVCPerfectCarsData.Migrations
                     b.Property<bool>("Enabled")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Logo")
+                    b.Property<string>("Image")
                         .IsRequired()
                         .IsUnicode(false)
                         .HasColumnType("varchar(max)");
@@ -284,8 +284,14 @@ namespace MVCPerfectCarsData.Migrations
                     b.Property<DateTime>("DateOfCreation")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("Enabled")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ModulId")
                         .HasColumnType("int");

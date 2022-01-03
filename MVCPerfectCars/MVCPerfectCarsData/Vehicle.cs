@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,10 @@ namespace MVCPerfectCarsData
 
         public decimal Price { get; set; }
 
+        public string Image { get; set; }
+
+        [Display(Name = "Açıklamalar")]
+        public string Description { get; set; }
 
         public virtual Modul Modul { get; set; }
 

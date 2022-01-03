@@ -1,20 +1,28 @@
 ﻿@model MVCPerfectCarsData.Brand
 
 @{
-    ViewData["Title"] = "Marka Oluşturma";
+    ViewData["Title"] = "Marka Güncelleme";
 }
+
+
 
 
 <hr />
 <div class="row">
-    <div >
-        <form asp-action="Create" method="post" enctype="multipart/form-data">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <input type="hidden" asp-for="DateOfCreation" />
+            <input type="hidden" asp-for="Image" />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
             <div class="form-row">
                 <div class="form-group col-12 col-md-6">
                     <div>
-                        <img id="previewImage" src="~/content/images/no-photo-available (1).png" width="120" height="120" class="p-2 border" />
+                        <img id="previewImage" src="@Model.Image" width="120" height="120" class="p-2 border" />
                     </div>
                     <label asp-for="Image"></label>
                     <div class="custom-file">
@@ -39,32 +47,27 @@
 
                     <span asp-validation-for="Image" class="text-danger"></span>
                 </div>
-             </div>
+            </div>
 
-
-                <div class="form-group">
-                    <label asp-for="Name" class="control-label"></label>
-                    <input asp-for="Name" class="form-control" />
-                    <span asp-validation-for="Name" class="text-danger"></span>
-                </div>
-
-                <div class="form-group form-check">
-                    <label class="form-check-label">
-                        <input class="form-check-input" asp-for="Enabled" /> @Html.DisplayNameFor(model => model.Enabled)
-                    </label>
-                </div>
-                <div class="form-group">
-                    <label asp-for="DateOfCreation" class="control-label"></label>
-                    <input asp-for="DateOfCreation" class="form-control" />
-                    <span asp-validation-for="DateOfCreation" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-success">
-                        <i class="fa fa-save"></i>
-                        KAYDET
-                    </button>
-                </div>
-</form>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Enabled" /> @Html.DisplayNameFor(model => model.Enabled)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateOfCreation" class="control-label"></label>
+                <input asp-for="DateOfCreation" class="form-control" />
+                <span asp-validation-for="DateOfCreation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <a asp-action="Index" class="btn btn-danger">İptal</a>
+                <button type="submit" class="btn btn-success">
+                    <i class="fa fa-save"></i>
+                    KAYDET
+                </button>
+            </div>
+        </form>
     </div>
 </div>
 
@@ -74,6 +77,8 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    
+
     <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
     <script>
         $(() => {
@@ -89,4 +94,5 @@
             });
         });
     </script>
+
 }

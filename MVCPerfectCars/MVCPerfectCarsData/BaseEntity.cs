@@ -19,5 +19,8 @@ namespace MVCPerfectCarsData
         [Required(ErrorMessage = "{0} alanı boş bırakılamaz")]
         public DateTime DateOfCreation { get; set; }
 
+        public interface IHasImage
+        {
+        }
     }
 }

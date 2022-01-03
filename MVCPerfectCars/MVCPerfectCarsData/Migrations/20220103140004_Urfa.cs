@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MVCPerfectCarsData.Migrations
 {
-    public partial class Ankara : Migration
+    public partial class Urfa : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -75,7 +75,7 @@ namespace MVCPerfectCarsData.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Logo = table.Column<string>(type: "varchar(max)", unicode: false, nullable: false),
+                    Image = table.Column<string>(type: "varchar(max)", unicode: false, nullable: false),
                     Enabled = table.Column<bool>(type: "bit", nullable: false),
                     DateOfCreation = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -311,6 +311,8 @@ namespace MVCPerfectCarsData.Migrations
                     ModulId = table.Column<int>(type: "int", nullable: false),
                     BrandId = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,4)", precision: 18, scale: 4, nullable: false),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RepresentativeId = table.Column<int>(type: "int", nullable: true),
                     Enabled = table.Column<bool>(type: "bit", nullable: false),
                     DateOfCreation = table.Column<DateTime>(type: "datetime2", nullable: false)

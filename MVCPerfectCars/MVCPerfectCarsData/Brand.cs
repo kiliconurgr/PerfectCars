@@ -19,10 +19,14 @@ namespace MVCPerfectCarsData
 
         [Display(Name = "Logo")]
         [Required(ErrorMessage = "{0} alanı boş bırakılamaz")]
-        public string Logo { get; set; }
+        public string Image { get; set; }
 
         [NotMapped]
         public IFormFile ImageFile { get; set; }
+
+        public string SafeImage => Image ?? "/content/images/no-photo-available (1).png";
+
+
 
         public virtual ICollection<Vehicle> Vehicles { get; set; } = new HashSet<Vehicle>();
 
@@ -30,9 +34,9 @@ namespace MVCPerfectCarsData
 
         public virtual ICollection<Portfolio> Portfolios { get; set; } = new HashSet<Portfolio>();
 
-        public string SafeImage => Logo ?? "/content/images/no-image.png";
+       
 
-
+        
     }
 
     public class BrandEntityTypeConfiguration : IEntityTypeConfiguration<Brand>
@@ -40,12 +44,14 @@ namespace MVCPerfectCarsData
         public void Configure(EntityTypeBuilder<Brand> builder)
         {
             builder
+
                 .Property(p => p.Name)
                 .HasMaxLength(50)
                 .IsRequired();
+                
 
             builder
-                .Property(p => p.Logo)
+                .Property(p => p.Image)
                 .IsRequired()
                 .IsUnicode(false);
         }
