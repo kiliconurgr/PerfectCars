@@ -18,7 +18,10 @@ namespace MVCPerfectCars.Areas.Admin.Controllers
     {
         private readonly MVCPerfectCarsDbContext _context;
 
-        public BrandsController(MVCPerfectCarsDbContext context)
+        public BrandsController(
+            MVCPerfectCarsDbContext context
+           
+            )
         {
             _context = context;
         }

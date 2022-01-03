@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ namespace MVCPerfectCarsData
 {
     public class VehicleType : BaseEntity
     {
+        [Display(Name = "Araç Tipi Adı")]
         public string Name { get; set; }
 
         public virtual ICollection<Modul> Moduls { get; set; } = new HashSet<Modul>();

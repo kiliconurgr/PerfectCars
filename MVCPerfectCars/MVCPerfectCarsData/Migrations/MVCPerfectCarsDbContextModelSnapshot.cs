@@ -82,6 +82,9 @@ namespace MVCPerfectCarsData.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Name")
+                        .IsUnique();
+
                     b.ToTable("Brands");
                 });
 
@@ -311,6 +314,9 @@ namespace MVCPerfectCarsData.Migrations
                     b.HasIndex("BrandId");
 
                     b.HasIndex("ModulId");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.HasIndex("RepresentativeId");
 
@@ -553,7 +559,7 @@ namespace MVCPerfectCarsData.Migrations
                     b.HasOne("MVCPerfectCarsData.Brand", "Brand")
                         .WithMany("Vehicles")
                         .HasForeignKey("BrandId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("MVCPerfectCarsData.Modul", "Modul")

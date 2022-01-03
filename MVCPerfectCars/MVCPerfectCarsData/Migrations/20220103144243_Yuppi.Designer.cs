@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVCPerfectCarsData.Migrations
 {
     [DbContext(typeof(MVCPerfectCarsDbContext))]
-    [Migration("20220103140004_Urfa")]
-    partial class Urfa
+    [Migration("20220103144243_Yuppi")]
+    partial class Yuppi
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -83,6 +83,9 @@ namespace MVCPerfectCarsData.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Brands");
                 });
@@ -313,6 +316,9 @@ namespace MVCPerfectCarsData.Migrations
                     b.HasIndex("BrandId");
 
                     b.HasIndex("ModulId");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.HasIndex("RepresentativeId");
 
@@ -555,7 +561,7 @@ namespace MVCPerfectCarsData.Migrations
                     b.HasOne("MVCPerfectCarsData.Brand", "Brand")
                         .WithMany("Vehicles")
                         .HasForeignKey("BrandId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("MVCPerfectCarsData.Modul", "Modul")

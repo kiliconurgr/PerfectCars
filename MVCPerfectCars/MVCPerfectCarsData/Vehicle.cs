@@ -1,15 +1,17 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MVCPerfectCarsData
 {
-    public class Vehicle : BaseEntity
+    public class Vehicle : BaseEntity, IHasImage
     {
 
         public string Name { get; set; }
@@ -28,6 +30,19 @@ namespace MVCPerfectCarsData
 
         public virtual Brand Brand { get; set; }
 
+        [NotMapped]
+        public string SafeImage => Image ?? "/content/images/no-image.png";
+
+        [NotMapped]
+        public IFormFile ImageFile { get; set; }
+
+
+        [NotMapped]
+        public IFormFile[] ImageFiles { get; set; }
+
+        [NotMapped]
+        public int[] ImagesToDeleted { get; set; }
+
         public virtual Representative Representative { get; set; }
         public virtual ICollection<Portfolio> Portfolios { get; set; } = new HashSet<Portfolio>();
 
@@ -41,6 +56,10 @@ namespace MVCPerfectCarsData
     {
         public void Configure(EntityTypeBuilder<Vehicle> builder)
         {
+            builder
+               .HasIndex(p => new { p.Name })
+               .IsUnique(true);
+
             builder
                 .Property(p => p.Name)
                 .IsRequired()

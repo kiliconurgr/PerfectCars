@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace MVCPerfectCarsData
 {
-    public class Brand : BaseEntity
+    public class Brand : BaseEntity, IHasImage
     {
         [Display(Name = "Marka Adı")]
         [Required(ErrorMessage = "{0} alanı boş bırakılamaz")]
@@ -44,6 +44,10 @@ namespace MVCPerfectCarsData
         public void Configure(EntityTypeBuilder<Brand> builder)
         {
             builder
+                .HasIndex(p => new { p.Name })
+                .IsUnique(true);
+
+            builder
 
                 .Property(p => p.Name)
                 .HasMaxLength(50)
@@ -54,6 +58,12 @@ namespace MVCPerfectCarsData
                 .Property(p => p.Image)
                 .IsRequired()
                 .IsUnicode(false);
+
+            builder
+               .HasMany(p => p.Vehicles)
+               .WithOne(p => p.Brand)
+               .HasForeignKey(p => p.BrandId)
+               .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

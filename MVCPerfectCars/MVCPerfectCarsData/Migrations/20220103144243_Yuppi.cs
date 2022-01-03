@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MVCPerfectCarsData.Migrations
 {
-    public partial class Urfa : Migration
+    public partial class Yuppi : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -331,7 +331,7 @@ namespace MVCPerfectCarsData.Migrations
                         column: x => x.BrandId,
                         principalTable: "Brands",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Vehicles_Moduls_ModulId",
                         column: x => x.ModulId,
@@ -429,6 +429,12 @@ namespace MVCPerfectCarsData.Migrations
                 column: "PortfoliosId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Brands_Name",
+                table: "Brands",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ModulPortfolio_PortfoliosId",
                 table: "ModulPortfolio",
                 column: "PortfoliosId");
@@ -474,6 +480,12 @@ namespace MVCPerfectCarsData.Migrations
                 name: "IX_Vehicles_ModulId",
                 table: "Vehicles",
                 column: "ModulId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Vehicles_Name",
+                table: "Vehicles",
+                column: "Name",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Vehicles_RepresentativeId",
