@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace MVCPerfectCarsData
 {
+   
     public class Vehicle : BaseEntity, IHasImage
     {
 
@@ -19,13 +20,22 @@ namespace MVCPerfectCarsData
 
         public int BrandId { get; set; }
 
+        
+
         public decimal Price { get; set; }
+
+        [NotMapped]
+        [Display(Name = "Liste Fiyatı")]
+        [Required(ErrorMessage = "{0} alanı boş bırakılamaz!")]
+        [RegularExpression("^[+-]?[0-9]{1,3}(?:.?[0-9]{3})*(,[0-9]{2})?$", ErrorMessage = "Lütfen geçerli bir {0} yazınız!")]
+        public string PriceText { get; set; }
 
         public string Image { get; set; }
 
         [Display(Name = "Açıklamalar")]
         public string Description { get; set; }
-
+        
+        
         public virtual Modul Modul { get; set; }
 
         public virtual Brand Brand { get; set; }
@@ -74,6 +84,7 @@ namespace MVCPerfectCarsData
                 .WithOne(p => p.Vehicle)
                 .HasForeignKey(p => p.VehicleId)
                 .OnDelete(DeleteBehavior.Cascade);
+           
         }
     }
 }

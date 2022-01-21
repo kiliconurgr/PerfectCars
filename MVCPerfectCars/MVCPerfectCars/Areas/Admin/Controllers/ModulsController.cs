@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using MVCPerfectCars.Areas.Admin.Models;
 using MVCPerfectCarsData;
 
 namespace MVCPerfectCars.Areas.Admin.Controllers
@@ -22,35 +23,16 @@ namespace MVCPerfectCars.Areas.Admin.Controllers
         // GET: Admin/Moduls
         public async Task<IActionResult> Index()
         {
-            var mVCPerfectCarsDbContext = _context.Moduls.Include(m => m.Brand).Include(m => m.VehicleType);
+            var mVCPerfectCarsDbContext = _context.Moduls.Include(m => m.Brand);
             return View(await mVCPerfectCarsDbContext.ToListAsync());
         }
 
-        // GET: Admin/Moduls/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var modul = await _context.Moduls
-                .Include(m => m.Brand)
-                .Include(m => m.VehicleType)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (modul == null)
-            {
-                return NotFound();
-            }
-
-            return View(modul);
-        }
+       
 
         // GET: Admin/Moduls/Create
         public IActionResult Create()
         {
-            ViewData["BrandId"] = new SelectList(_context.Brands, "Id", "Logo");
-            ViewData["VehicleTypeId"] = new SelectList(_context.VehicleTypes, "Id", "Name");
+            ViewData["BrandId"] = new SelectList(_context.Brands, "Id", "Name");
             return View();
         }
 
@@ -59,7 +41,7 @@ namespace MVCPerfectCars.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,BrandId,VehicleTypeId,Id,Enabled,DateOfCreation")] Modul modul)
+        public async Task<IActionResult> Create([Bind("Name,BrandId,VehicleType,Id,Enabled,DateOfCreation")] Modul modul)
         {
             if (ModelState.IsValid)
             {
@@ -67,8 +49,7 @@ namespace MVCPerfectCars.Areas.Admin.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BrandId"] = new SelectList(_context.Brands, "Id", "Logo", modul.BrandId);
-            ViewData["VehicleTypeId"] = new SelectList(_context.VehicleTypes, "Id", "Name", modul.VehicleTypeId);
+            ViewData["BrandId"] = new SelectList(_context.Brands, "Id", "Name", modul.BrandId);
             return View(modul);
         }
 
@@ -85,8 +66,7 @@ namespace MVCPerfectCars.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            ViewData["BrandId"] = new SelectList(_context.Brands, "Id", "Logo", modul.BrandId);
-            ViewData["VehicleTypeId"] = new SelectList(_context.VehicleTypes, "Id", "Name", modul.VehicleTypeId);
+            ViewData["BrandId"] = new SelectList(_context.Brands, "Id", "Name", modul.BrandId);
             return View(modul);
         }
 
@@ -95,7 +75,7 @@ namespace MVCPerfectCars.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Name,BrandId,VehicleTypeId,Id,Enabled,DateOfCreation")] Modul modul)
+        public async Task<IActionResult> Edit(int id, [Bind("Name,BrandId,VehicleType,Id,Enabled,DateOfCreation")] Modul modul)
         {
             if (id != modul.Id)
             {
@@ -122,41 +102,27 @@ namespace MVCPerfectCars.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BrandId"] = new SelectList(_context.Brands, "Id", "Logo", modul.BrandId);
-            ViewData["VehicleTypeId"] = new SelectList(_context.VehicleTypes, "Id", "Name", modul.VehicleTypeId);
+            ViewData["BrandId"] = new SelectList(_context.Brands, "Id", "Name", modul.BrandId);
             return View(modul);
         }
 
         // GET: Admin/Moduls/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var modul = await _context.Moduls
-                .Include(m => m.Brand)
-                .Include(m => m.VehicleType)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (modul == null)
-            {
-                return NotFound();
-            }
-
-            return View(modul);
-        }
-
-        // POST: Admin/Moduls/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
             var modul = await _context.Moduls.FindAsync(id);
-            _context.Moduls.Remove(modul);
-            await _context.SaveChangesAsync();
+            _context.Remove(modul);
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                TempData["error"] = ErrorDescriber.ConcurrencyError(modul.Name);
+            }
             return RedirectToAction(nameof(Index));
         }
+
+     
 
         private bool ModulExists(int id)
         {

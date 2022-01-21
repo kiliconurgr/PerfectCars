@@ -37,7 +37,7 @@ namespace MVCPerfectCarsData
 
         public virtual DbSet<VehicleImage> VehicleImages { get; set; }
 
-        public virtual DbSet<VehicleType> VehicleTypes { get; set; }
+        
 
     }
 }

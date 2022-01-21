@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVCPerfectCarsData.Migrations
 {
     [DbContext(typeof(MVCPerfectCarsDbContext))]
-    [Migration("20220103144243_Yuppi")]
-    partial class Yuppi
+    [Migration("20220111121704_NFS")]
+    partial class NFS
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -111,19 +111,19 @@ namespace MVCPerfectCarsData.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("VehicleTypeId")
-                        .HasColumnType("int");
+                    b.Property<string>("VehicleType")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("BrandId");
 
-                    b.HasIndex("VehicleTypeId");
-
                     b.HasIndex("Name", "BrandId")
                         .IsUnique();
 
-                    b.HasIndex("Name", "VehicleTypeId")
+                    b.HasIndex("Name", "VehicleType")
                         .IsUnique();
 
                     b.ToTable("Moduls");
@@ -139,29 +139,18 @@ namespace MVCPerfectCarsData.Migrations
                     b.Property<DateTime>("DateOfCreation")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("DriveType")
-                        .HasColumnType("int");
-
                     b.Property<bool>("Enabled")
                         .HasColumnType("bit");
-
-                    b.Property<int>("Fuel")
-                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
-                    b.Property<string>("PlateNumber")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
-
-                    b.Property<int>("TranmissionType")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Portfolios");
                 });
@@ -327,12 +316,12 @@ namespace MVCPerfectCarsData.Migrations
 
             modelBuilder.Entity("MVCPerfectCarsData.VehicleImage", b =>
                 {
-                    b.Property<int>("VehicleImageId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Photo")
+                    b.Property<string>("Image")
                         .IsRequired()
                         .IsUnicode(false)
                         .HasColumnType("varchar(max)");
@@ -340,37 +329,11 @@ namespace MVCPerfectCarsData.Migrations
                     b.Property<int>("VehicleId")
                         .HasColumnType("int");
 
-                    b.HasKey("VehicleImageId");
+                    b.HasKey("Id");
 
                     b.HasIndex("VehicleId");
 
                     b.ToTable("VehicleImages");
-                });
-
-            modelBuilder.Entity("MVCPerfectCarsData.VehicleType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("DateOfCreation")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("Enabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
-
-                    b.ToTable("VehicleTypes");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -545,15 +508,7 @@ namespace MVCPerfectCarsData.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MVCPerfectCarsData.VehicleType", "VehicleType")
-                        .WithMany("Moduls")
-                        .HasForeignKey("VehicleTypeId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.Navigation("Brand");
-
-                    b.Navigation("VehicleType");
                 });
 
             modelBuilder.Entity("MVCPerfectCarsData.Vehicle", b =>
@@ -688,11 +643,6 @@ namespace MVCPerfectCarsData.Migrations
             modelBuilder.Entity("MVCPerfectCarsData.Vehicle", b =>
                 {
                     b.Navigation("VehicleImages");
-                });
-
-            modelBuilder.Entity("MVCPerfectCarsData.VehicleType", b =>
-                {
-                    b.Navigation("Moduls");
                 });
 
             modelBuilder.Entity("MVCPerfectCarsData.Representative", b =>

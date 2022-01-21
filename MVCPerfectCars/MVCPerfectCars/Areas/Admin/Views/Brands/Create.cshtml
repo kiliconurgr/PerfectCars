@@ -11,6 +11,7 @@
         <form asp-action="Create" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
+          
             <div class="form-row">
                 <div class="form-group col-12 col-md-6">
                     <div>
@@ -18,8 +19,8 @@
                     </div>
                     <label asp-for="Image"></label>
                     <div class="custom-file">
-                        <input type="file" class="custom-file-input" accept="image/*" id="ImageFİle" name="ImageFile" />
-                        <label class="custom-file-label" for="ImageFile" data-browse="Gözat">Dosya Seçiniz</label>
+                        <input type="file" class="custom-file-input" accept="image/*" id="ImageFile" name="ImageFile">
+                        <label class="custom-file-label" for="ImageFile" data-browse="Gözat">Görsel dosyası seçiniz</label>
                     </div>
                     <div class="py-2">
                         <div class="alert alert-light">
@@ -36,35 +37,29 @@
                             </div>
                         </div>
                     </div>
-
-                    <span asp-validation-for="Image" class="text-danger"></span>
                 </div>
-             </div>
+            </div>
 
 
-                <div class="form-group">
-                    <label asp-for="Name" class="control-label"></label>
-                    <input asp-for="Name" class="form-control" />
-                    <span asp-validation-for="Name" class="text-danger"></span>
-                </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
 
-                <div class="form-group form-check">
-                    <label class="form-check-label">
-                        <input class="form-check-input" asp-for="Enabled" /> @Html.DisplayNameFor(model => model.Enabled)
-                    </label>
-                </div>
-                <div class="form-group">
-                    <label asp-for="DateOfCreation" class="control-label"></label>
-                    <input asp-for="DateOfCreation" class="form-control" />
-                    <span asp-validation-for="DateOfCreation" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-success">
-                        <i class="fa fa-save"></i>
-                        KAYDET
-                    </button>
-                </div>
-</form>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Enabled" /> @Html.DisplayNameFor(model => model.Enabled)
+                </label>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-success">
+                    <i class="fa fa-save"></i>
+                    KAYDET
+                </button>
+            </div>
+        </form>
     </div>
 </div>
 
@@ -77,15 +72,16 @@
     <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
     <script>
         $(() => {
+         
             bsCustomFileInput.init();
 
-            $('ImageFile').change((e) => {
-                const r = new FileReader();
-                r.onloadend = () => {
-                    $('#previewImage').attr('src', r.result);
-                };
-                r.readAsDataURL($('#ImageFile')[0].files[0])
+            $('#ImageFile').change((e) => {
 
+                const r = new FileReader();
+                r.onloadend = (evt) => {
+                    $('#previewImage').attr('src', evt.currentTarget.result);
+                };
+                r.readAsDataURL($('#ImageFile')[0].files[0]);
             });
         });
     </script>

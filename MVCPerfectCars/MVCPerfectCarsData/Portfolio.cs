@@ -2,41 +2,20 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MVCPerfectCarsData
 {
-    public enum TranmissionType
-    {
-        Auto,
-        Manuel
-    }
-
-    public enum Fuel
-    {
-        Diesel,
-        Gasoline
-    }
-
-    public enum DriveType
-    {
-        FW,
-        RW,
-        AW
-    }
+    
     public class Portfolio : BaseEntity
     {
+        [Display(Name = "Özellik Adı")]
         public string Name { get; set; }
 
-        public string PlateNumber { get; set; }
-
-        public TranmissionType TranmissionType { get; set; }
-
-        public Fuel Fuel { get; set; }
-
-        public DriveType DriveType { get; set; }
+       
 
         public virtual ICollection<Vehicle> Vehicles { get; set; } = new HashSet<Vehicle>();
 
@@ -55,11 +34,11 @@ namespace MVCPerfectCarsData
                 .Property(p => p.Name)
                 .IsRequired()
                 .HasMaxLength(150);
-
             builder
-                .Property(p => p.PlateNumber)
-                .IsRequired()
-                .HasMaxLength(150);
+                .HasIndex(p => p.Name)
+                .IsUnique();
+
+           
         }
     }
 }

@@ -37,6 +37,7 @@ namespace MVCPerfectCars
             }).AddEntityFrameworkStores<MVCPerfectCarsDbContext>();
 
             services.AddScoped<IAccountService, AccountService>();
+            services.AddSingleton<UtilsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,7 +64,18 @@ namespace MVCPerfectCars
             app.ApplicationServices.CreateScope().ServiceProvider.GetRequiredService<IAccountService>().InitAsync().Wait();
             app.UseEndpoints(endpoints =>
             {
-                
+                endpoints
+                   .MapControllerRoute(
+                       name: "vehicle",
+                       pattern: "{name}-p-{id}.html",
+                       defaults: new { controller = "Home", action = "VehicleDetail" }
+                       );
+                endpoints
+               .MapControllerRoute(
+                   name: "brand",
+                   pattern: "{name}-b-{id}.html",
+                   defaults: new { controller = "Home", action = "Brands" }
+                   );
                 endpoints.MapControllerRoute(
                      name: "areas",
                      pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");

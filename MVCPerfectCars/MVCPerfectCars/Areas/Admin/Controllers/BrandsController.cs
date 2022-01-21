@@ -10,6 +10,8 @@ using MVCPerfectCarsData;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Png;
 using SixLabors.ImageSharp.Processing;
+using X.PagedList;
+using X.PagedList.Mvc;
 
 namespace MVCPerfectCars.Areas.Admin.Controllers
 {
@@ -17,24 +19,29 @@ namespace MVCPerfectCars.Areas.Admin.Controllers
     public class BrandsController : Controller
     {
         private readonly MVCPerfectCarsDbContext _context;
+        private readonly UtilsService utilsService;
 
         public BrandsController(
-            MVCPerfectCarsDbContext context
+            MVCPerfectCarsDbContext context,
+            UtilsService utilsService
            
             )
         {
             _context = context;
+            this.utilsService = utilsService;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index(int? page)
         {
-            return View(await _context.Brands.ToListAsync());
+            var model = (_context.Brands.ToList()).ToPagedList(page ?? 1, 10);
+            return View(model);
         }
 
 
         public IActionResult Create()
         {
-            return View();
+            var model = new Brand { Enabled = true };
+            return View(model);
         }
 
         [HttpPost]
@@ -49,15 +56,8 @@ namespace MVCPerfectCars.Areas.Admin.Controllers
                 
             }
 
-            using var image = await Image.LoadAsync(brand.ImageFile.OpenReadStream());
-            image.Mutate(p => p.Resize(new ResizeOptions
-            {
-                Mode = ResizeMode.Max,
-                Size = new Size(120, 120)
-            }));
-
-
-            brand.Image = image.ToBase64String(PngFormat.Instance);
+            utilsService.AddImage(brand, new ResizeImageOptions { Width = 120, Height = 120, Watermark = false });
+            brand.DateOfCreation = DateTime.Now;
                 _context.Brands.Add(brand);
             try {
                 await _context.SaveChangesAsync();
@@ -72,43 +72,35 @@ namespace MVCPerfectCars.Areas.Admin.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
+            
+
             var brand = await _context.Brands.FindAsync(id);
+
             return View(brand);
         }
 
         [HttpPost]
 
-        public async Task<IActionResult> Edit(int id, Brand brand)
+        public async Task<IActionResult> Edit(Brand brand)
         {
-            if (id != brand.Id)
-            {
-                return NotFound();
-            }
+            if (brand.ImageFile is not null)
+                utilsService.AddImage(brand, new ResizeImageOptions { Width = 120, Height = 120, Watermark = false });
+            _context.Update(brand);
 
-            if (ModelState.IsValid)
+            try
             {
-                try
-                {
-                    _context.Update(brand);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!BrandExists(brand.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(brand);
+            catch
+            {
+                TempData["error"] = ErrorDescriber.ConstraintError(brand.Name);
+                return View(brand);
+            }
+
         }
 
-        // GET: Admin/Brands/Delete/5
+       
         public async Task<IActionResult> Delete(int? id)
         {
             var brand = await _context.Brands.FindAsync(id);

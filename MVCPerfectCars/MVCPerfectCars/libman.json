@@ -5,6 +5,11 @@
     {
       "library": "startbootstrap-sb-admin-2@4.1.4",
       "destination": "wwwroot/lib/startbootstrap-sb-admin-2/"
+    },
+    {
+      "provider": "cdnjs",
+      "library": "angular.js@1.8.2",
+      "destination": "wwwroot/lib/angular.js/"
     }
   ]
 }

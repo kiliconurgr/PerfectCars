@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MVCPerfectCarsData.Migrations
 {
-    public partial class Yuppi : Migration
+    public partial class NFS : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -91,31 +91,12 @@ namespace MVCPerfectCarsData.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
-                    PlateNumber = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
-                    TranmissionType = table.Column<int>(type: "int", nullable: false),
-                    Fuel = table.Column<int>(type: "int", nullable: false),
-                    DriveType = table.Column<int>(type: "int", nullable: false),
                     Enabled = table.Column<bool>(type: "bit", nullable: false),
                     DateOfCreation = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Portfolios", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "VehicleTypes",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Enabled = table.Column<bool>(type: "bit", nullable: false),
-                    DateOfCreation = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_VehicleTypes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -225,6 +206,29 @@ namespace MVCPerfectCarsData.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Moduls",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    BrandId = table.Column<int>(type: "int", nullable: false),
+                    VehicleType = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Enabled = table.Column<bool>(type: "bit", nullable: false),
+                    DateOfCreation = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Moduls", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Moduls_Brands_BrandId",
+                        column: x => x.BrandId,
+                        principalTable: "Brands",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "BrandPortfolio",
                 columns: table => new
                 {
@@ -246,35 +250,6 @@ namespace MVCPerfectCarsData.Migrations
                         principalTable: "Portfolios",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Moduls",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    BrandId = table.Column<int>(type: "int", nullable: false),
-                    VehicleTypeId = table.Column<int>(type: "int", nullable: false),
-                    Enabled = table.Column<bool>(type: "bit", nullable: false),
-                    DateOfCreation = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Moduls", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Moduls_Brands_BrandId",
-                        column: x => x.BrandId,
-                        principalTable: "Brands",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Moduls_VehicleTypes_VehicleTypeId",
-                        column: x => x.VehicleTypeId,
-                        principalTable: "VehicleTypes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -368,14 +343,14 @@ namespace MVCPerfectCarsData.Migrations
                 name: "VehicleImages",
                 columns: table => new
                 {
-                    VehicleImageId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     VehicleId = table.Column<int>(type: "int", nullable: false),
-                    Photo = table.Column<string>(type: "varchar(max)", unicode: false, nullable: false)
+                    Image = table.Column<string>(type: "varchar(max)", unicode: false, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_VehicleImages", x => x.VehicleImageId);
+                    table.PrimaryKey("PK_VehicleImages", x => x.Id);
                     table.ForeignKey(
                         name: "FK_VehicleImages_Vehicles_VehicleId",
                         column: x => x.VehicleId,
@@ -451,15 +426,16 @@ namespace MVCPerfectCarsData.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Moduls_Name_VehicleTypeId",
+                name: "IX_Moduls_Name_VehicleType",
                 table: "Moduls",
-                columns: new[] { "Name", "VehicleTypeId" },
+                columns: new[] { "Name", "VehicleType" },
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Moduls_VehicleTypeId",
-                table: "Moduls",
-                column: "VehicleTypeId");
+                name: "IX_Portfolios_Name",
+                table: "Portfolios",
+                column: "Name",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_PortfolioVehicle_VehiclesId",
@@ -491,12 +467,6 @@ namespace MVCPerfectCarsData.Migrations
                 name: "IX_Vehicles_RepresentativeId",
                 table: "Vehicles",
                 column: "RepresentativeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_VehicleTypes_Name",
-                table: "VehicleTypes",
-                column: "Name",
-                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -548,9 +518,6 @@ namespace MVCPerfectCarsData.Migrations
 
             migrationBuilder.DropTable(
                 name: "Brands");
-
-            migrationBuilder.DropTable(
-                name: "VehicleTypes");
         }
     }
 }

@@ -1,11 +1,11 @@
-﻿
-@using X.PagedList.Mvc.Core;
+﻿@using X.PagedList.Mvc.Core;
 @using X.PagedList;
 @using X.PagedList.Web.Common;
-@model IEnumerable<MVCPerfectCarsData.Brand>
+
+@model IEnumerable<MVCPerfectCarsData.Portfolio>
 
 @{
-    ViewData["Title"] = "Markalar ";
+    ViewData["Title"] = "Özellik Tanımları";
 }
 
 
@@ -23,9 +23,6 @@
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Image)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Enabled)
             </th>
             <th>
@@ -40,9 +37,6 @@
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    <img src="@item.Image" width="50" height="50" />
                 </td>
                 <td>
                     @if (item.Enabled)
@@ -74,5 +68,3 @@
         }
     </tbody>
 </table>
-
-@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }), Extensions.PagedListRenderOptions)

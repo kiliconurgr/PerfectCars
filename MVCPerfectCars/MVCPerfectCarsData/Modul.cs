@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,13 +12,17 @@ namespace MVCPerfectCarsData
     public class Modul : BaseEntity
 
     {
+        [Display(Name = "Model")]
         public string Name { get; set; }
+
+        [Display(Name = "Marka")]
         public int BrandId { get; set; }
 
-        public int VehicleTypeId { get; set; }
+        [Display(Name = "Araç Tipi")]
+        public string VehicleType { get; set; }
 
-        public virtual VehicleType VehicleType { get; set; }
 
+        [Display(Name = "Marka")]
         public virtual Brand Brand { get; set; }
 
 
@@ -38,8 +43,14 @@ namespace MVCPerfectCarsData
                 .HasIndex(p => new { p.Name, p.BrandId })
                 .IsUnique(true);
             builder
-                .HasIndex(p => new { p.Name, p.VehicleTypeId })
+                .HasIndex(p => new { p.Name, p.VehicleType })
                 .IsUnique(true);
+
+            builder
+                .Property(p => p.VehicleType)
+                .HasMaxLength(50)
+                .IsRequired();
+
             builder
                 .Property(p => p.Name)
                 .HasMaxLength(50)
