@@ -38,10 +38,11 @@ namespace MVCPerfectCars.Areas.Admin.Controllers
        
         [HttpPost]
         
-        public async Task<IActionResult> Create([Bind("Name,Id,Enabled,DateOfCreation")] Portfolio portfolio)
+        public async Task<IActionResult> Create( Portfolio portfolio)
         {
             if (ModelState.IsValid)
             {
+                portfolio.DateOfCreation = DateTime.Now;
                 _context.Add(portfolio);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -68,7 +69,7 @@ namespace MVCPerfectCars.Areas.Admin.Controllers
         
         [HttpPost]
        
-        public async Task<IActionResult> Edit(int id, [Bind("Name,Id,Enabled,DateOfCreation")] Portfolio portfolio)
+        public async Task<IActionResult> Edit(int id, Portfolio portfolio)
         {
             if (id != portfolio.Id)
             {

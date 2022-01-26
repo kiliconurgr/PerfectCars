@@ -1,7 +1,7 @@
 ﻿@model MVCPerfectCarsData.Vehicle
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "İlan Güncelleme";
 }
 
 <hr />
@@ -30,7 +30,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="Portfolios" class="control-label"></label>
-                <select asp-for="Portfolios" class="form-control" asp-items="ViewBag.Portfolios"></select>
+                <div class="card-body p-2">
+                    @foreach (var portfolio in ViewBag.Portfolios as SelectList)
+                    {
+                        <input type="checkbox" name="SelectedPortfolios" value="@portfolio.Value" />@portfolio.Text
+                    }
+                </div>
             </div>
             <div class="form-group">
                 <label asp-for="PriceText" class="control-label"></label>
@@ -113,7 +118,11 @@
             </div>
 
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-danger">İptal</a>
+                <button type="submit" class="btn btn-success">
+                    <i class="fa fa-save"></i>
+                    KAYDET
+                </button>
             </div>
 
         </div>

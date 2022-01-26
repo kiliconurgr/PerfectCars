@@ -30,9 +30,12 @@
 
             <div class="form-group">
                 <label asp-for="Portfolios" class="control-label"></label>
-                <select multiple asp-for="Portfolios" class="form-control" asp-items="ViewBag.Portfolios">
-                </select>
-
+                <div class="card-body p-2">
+                    @foreach (var portfolio in ViewBag.Portfolios as SelectList)
+                    {
+                        <input type="checkbox" name="SelectedPortfolios" value="@portfolio.Value" />@portfolio.Text
+                    }
+                </div>
             </div>
 
             <div class="form-group col-12 col-md-4">
@@ -58,8 +61,8 @@
                                 </div>
                                 <div class="px-2">
                                     <ul class="list-unstyled">
-                                        <li>En iyi görünüm için 800&times;800 ebadında görseller yükleyiniz</li>
-                                        <li>Yüklenen görseller otomatik olarak 800&times;800 ebadına getirilecektir.</li>
+                                        <li>En iyi görünüm için 120&times;120 ebadında görseller yükleyiniz</li>
+                                        <li>Yüklenen görseller otomatik olarak 120&times;120 ebadına getirilecektir.</li>
                                     </ul>
                                 </div>
                             </div>
@@ -71,10 +74,10 @@
                 <div class="form-group col-12 col-md-6">
                     <div id="previewGallery">
                     </div>
-                    <label asp-for="VehicleImages"></label>
+                    <label asp-for="VehicleImages">İlan Resimleri</label>
                     <div class="custom-file">
-                        <input type="file" class="custom-file-input" accept="image/*" multiple id="ProductImages" name="ImageFiles">
-                        <label class="custom-file-label" for="ProductImages" data-browse="Gözat">Görsel dosya(lar)ı seçiniz</label>
+                        <input type="file" class="custom-file-input" accept="image/*" multiple id="VehicleImages" name="ImageFiles">
+                        <label class="custom-file-label" for="VehicleImages" data-browse="Gözat">Görsel dosya(lar)ı seçiniz</label>
                     </div>
                     <div class="py-2">
                         <div class="alert alert-light">

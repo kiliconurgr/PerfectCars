@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVCPerfectCarsData.Migrations
 {
     [DbContext(typeof(MVCPerfectCarsDbContext))]
-    [Migration("20220111121704_NFS")]
-    partial class NFS
+    [Migration("20220122064428_vol1")]
+    partial class vol1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

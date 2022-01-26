@@ -14,14 +14,17 @@ namespace MVCPerfectCarsData
    
     public class Vehicle : BaseEntity, IHasImage
     {
-
+        [Display(Name = "İlan Adı")]
         public string Name { get; set; }
+
+        [Display(Name = "Model Adı")]
         public int ModulId { get; set; }
 
+        [Display(Name = "Marka Adı")]
         public int BrandId { get; set; }
 
-        
 
+        [Display(Name = "Fiyat")]
         public decimal Price { get; set; }
 
         [NotMapped]
@@ -30,6 +33,7 @@ namespace MVCPerfectCarsData
         [RegularExpression("^[+-]?[0-9]{1,3}(?:.?[0-9]{3})*(,[0-9]{2})?$", ErrorMessage = "Lütfen geçerli bir {0} yazınız!")]
         public string PriceText { get; set; }
 
+        [Display(Name = "Görsel")]
         public string Image { get; set; }
 
         [Display(Name = "Açıklamalar")]
@@ -48,6 +52,7 @@ namespace MVCPerfectCarsData
 
 
         [NotMapped]
+        
         public IFormFile[] ImageFiles { get; set; }
 
         [NotMapped]

@@ -30,9 +30,10 @@ namespace MVCPerfectCars.Areas.Admin.Controllers
        
 
         // GET: Admin/Moduls/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             ViewData["BrandId"] = new SelectList(_context.Brands, "Id", "Name");
+            var model = new Modul { Enabled = true };
             return View();
         }
 
@@ -41,10 +42,12 @@ namespace MVCPerfectCars.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,BrandId,VehicleType,Id,Enabled,DateOfCreation")] Modul modul)
+        public async Task<IActionResult> Create( Modul modul)
         {
+            modul.DateOfCreation = DateTime.Now;
             if (ModelState.IsValid)
             {
+                
                 _context.Add(modul);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -75,7 +78,7 @@ namespace MVCPerfectCars.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Name,BrandId,VehicleType,Id,Enabled,DateOfCreation")] Modul modul)
+        public async Task<IActionResult> Edit(int id,  Modul modul)
         {
             if (id != modul.Id)
             {

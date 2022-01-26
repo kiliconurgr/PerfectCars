@@ -119,6 +119,7 @@ namespace MVCPerfectCars.Areas.Admin.Controllers
         private bool BrandExists(int id)
         {
             return _context.Brands.Any(e => e.Id == id);
+            
         }
     }
 
