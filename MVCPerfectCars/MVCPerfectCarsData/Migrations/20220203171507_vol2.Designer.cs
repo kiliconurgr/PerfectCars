@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVCPerfectCarsData.Migrations
 {
     [DbContext(typeof(MVCPerfectCarsDbContext))]
-    [Migration("20220122064428_vol1")]
-    partial class vol1
+    [Migration("20220203171507_vol2")]
+    partial class vol2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

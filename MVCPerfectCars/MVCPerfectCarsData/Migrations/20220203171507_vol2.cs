@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MVCPerfectCarsData.Migrations
 {
-    public partial class vol1 : Migration
+    public partial class vol2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

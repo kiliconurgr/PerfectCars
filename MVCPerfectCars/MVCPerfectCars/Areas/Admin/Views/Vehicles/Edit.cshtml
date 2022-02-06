@@ -152,7 +152,7 @@
                 r.readAsDataURL($('#ImageFile')[0].files[0]);
             });
 
-            $('#+').change((e) => {
+            $('#VehicleImages').change((e) => {
                 $('#previewGallery').html('');
                 for (var i = 0; i < $('#VehicleImages')[0].files.length; i++) {
                     const r = new FileReader();
