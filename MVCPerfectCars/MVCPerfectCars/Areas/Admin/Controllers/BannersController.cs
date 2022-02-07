@@ -23,7 +23,7 @@ namespace MVCPerfectCars.Areas.Admin.Controllers
             this.context = context;
             this.utilsService = utilsService;
         }
-            
+
         public IActionResult Index()
         {
             var model = context.Banners.ToList();
@@ -47,7 +47,7 @@ namespace MVCPerfectCars.Areas.Admin.Controllers
 
             utilsService.AddImage(model, new ResizeImageOptions { Width = 1920, Height = 480, Watermark = false });
 
-            model.dat = DateTime.Now;
+            model.DateOfCreation = DateTime.Now;
             context.Banners.Add(model);
             try
             {

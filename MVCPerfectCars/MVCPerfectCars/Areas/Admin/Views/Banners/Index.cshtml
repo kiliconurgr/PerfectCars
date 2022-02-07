@@ -1,19 +1,19 @@
 ﻿@model IEnumerable<MVCPerfectCarsData.Banner>
-
 @{
 }
-<div class="p-2 border text-right">
-    <a asp-action="Create" class="btn btn-primary">
-        <i class="fa fa-plus"></i>
-        YENİ KAYIT
-    </a>
-</div>
+
 
 <div class="card card-primary card-outline">
     <div class="card-header">
         <div class="card-title">Görsel Listesi</div>
     </div>
     <div class="card-body">
+        <p>
+            <a asp-action="Create">
+                <button class="btn btn-primary">Yeni Kayıt</button>
+
+            </a>
+        </p>
         <table class="table">
             <thead>
                 <tr>
@@ -39,13 +39,13 @@
                         <td>
                             @if (item.Enabled)
                             {
-                                <span class="text-success">
+                                <span class=" text-success">
                                     <i class="fa fa-check"></i>
                                 </span>
                             }
                             else
                             {
-                                <span class="text-danger">
+                                <span class=" text-danger">
                                     <i class="fa fa-times"></i>
                                 </span>
                             }
@@ -54,13 +54,13 @@
                             @item.DateOfCreation.ToShortDateString()
                         </td>
                         <td>
-                            <a asp-action="Delete" asp-route-id="@item.Id" class="text-danger delete-btn">
+                            <a asp-action="Edit" asp-route-id="@item.Id">
+                                <i class="fa fa-pen"></i>
+                            </a> |
+
+                            <a asp-action="Delete" asp-route-id="@item.Id">
                                 <i class="fa fa-trash"></i>
                             </a>
-                            <a asp-action="Edit" asp-route-id="@item.Id" class="text-warning">
-                                <i class="fa fa-edit"></i>
-                            </a>
-
                         </td>
                     </tr>
                 }

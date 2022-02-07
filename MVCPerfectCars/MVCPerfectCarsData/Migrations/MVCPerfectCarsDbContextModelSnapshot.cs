@@ -54,7 +54,7 @@ namespace MVCPerfectCarsData.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Banner");
+                    b.ToTable("Banners");
                 });
 
             modelBuilder.Entity("MVCPerfectCarsData.Brand", b =>

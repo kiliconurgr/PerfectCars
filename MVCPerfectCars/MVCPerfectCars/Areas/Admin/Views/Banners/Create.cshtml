@@ -1,6 +1,4 @@
 ﻿@model MVCPerfectCarsData.Banner
-
-
 @{
 }
 <form method="post" enctype="multipart/form-data">
@@ -9,13 +7,6 @@
             <div class="card-title">
                 <i class="fa fa-pencil"></i>
                 Görsel Ekleme
-            </div>
-            <div class="card-tools">
-                <a asp-action="Index" class="btn btn-default">İptal</a>
-                <button type="submit" class="btn btn-success">
-                    <i class="fa fa-save"></i>
-                    KAYDET
-                </button>
             </div>
         </div>
         <div class="card-body">
@@ -55,8 +46,18 @@
                 </div>
             </div>
         </div>
+
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-success">
+            <i class="fa fa-save"></i>
+            KAYDET
+        </button>
     </div>
 </form>
+<div>
+    <a asp-action="Index">Listeye Geri Dön</a>
+</div>
 
 @section scripts {
     <partial name="_ValidationScriptsPartial" />
