@@ -1,19 +1,20 @@
-﻿@model IEnumerable<MVCPerfectCarsData.Banner>
-@{
-}
+@model IEnumerable<MVCPerfectCarsData.Banner>
 
+@{
+    ViewData["Title"] = "Görseller";
+}
+<p>
+    <a asp-action="Create">
+        <button class="btn btn-primary">Yeni Kayıt</button>
+
+    </a>
+</p>
 
 <div class="card card-primary card-outline">
     <div class="card-header">
         <div class="card-title">Görsel Listesi</div>
     </div>
     <div class="card-body">
-        <p>
-            <a asp-action="Create">
-                <button class="btn btn-primary">Yeni Kayıt</button>
-
-            </a>
-        </p>
         <table class="table">
             <thead>
                 <tr>
@@ -32,37 +33,37 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>
-                            <img src="@item.Image" width="192" height="48" />
-                        </td>
-                        <td>
-                            @if (item.Enabled)
-                            {
-                                <span class=" text-success">
-                                    <i class="fa fa-check"></i>
-                                </span>
-                            }
-                            else
-                            {
-                                <span class=" text-danger">
-                                    <i class="fa fa-times"></i>
-                                </span>
-                            }
-                        </td>
-                        <td>
-                            @item.DateOfCreation.ToShortDateString()
-                        </td>
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@item.Id">
-                                <i class="fa fa-pen"></i>
-                            </a> |
+                <tr>
+                    <td>
+                        <img src="@item.Image" width="192" height="48" />
+                    </td>
+                    <td>
+                        @if (item.Enabled)
+                        {
+                            <span class="text-success">
+                                <i class="fa fa-check"></i>
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="text-danger">
+                                <i class="fa fa-times"></i>
+                            </span>
+                        }
+                    </td>
+                    <td>
+                        @item.DateOfCreation.ToShortDateString()
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">
+                            <i class="fa fa-pen"></i>
+                        </a> |
 
-                            <a asp-action="Delete" asp-route-id="@item.Id">
-                                <i class="fa fa-trash"></i>
-                            </a>
-                        </td>
-                    </tr>
+                        <a asp-action="Delete" asp-route-id="@item.Id">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
                 }
             </tbody>
             <tfoot>
@@ -75,3 +76,5 @@
 @section scripts {
     <partial name="_RemoveConfirmationPartial" />
 }
+
+

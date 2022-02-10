@@ -1,4 +1,4 @@
-﻿@model MVCPerfectCarsData.Brand
+@model MVCPerfectCarsData.Brand
 
 @{
     ViewData["Title"] = "Marka Güncelleme";
@@ -9,8 +9,8 @@
 
 <hr />
 <div class="row">
-    <div class="col-md-4" >
-        <form asp-action="Edit" method="post" enctype="multipart/form-data" >
+    <div class="col-md-4">
+        <form asp-action="Edit"  method="post" enctype="multipart/form-data" >
             <input type="hidden" asp-for="DateOfCreation" />
             <input type="hidden" asp-for="Image" />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>

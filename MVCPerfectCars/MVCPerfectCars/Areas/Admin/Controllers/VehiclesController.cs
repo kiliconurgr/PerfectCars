@@ -34,8 +34,11 @@ namespace MVCPerfectCars.Areas.Admin.Controllers
 
         private async Task PopulateDropdowns()
         {
-            ViewBag.Brands = new SelectList(await _context.Brands.ToListAsync(), "Id", "Name");
-            ViewBag.Portfolios = new SelectList(await _context.Portfolios.ToListAsync(), "Id", "Name");
+            
+                
+                 ViewBag.Brands = new SelectList(await _context.Brands.OrderBy(p=>p.Name).ToListAsync(), "Id", "Name");
+                 ViewBag.Portfolios = new SelectList(await _context.Portfolios.OrderBy(p => p.Name).ToListAsync(), "Id", "Name");
+            
         }
 
 

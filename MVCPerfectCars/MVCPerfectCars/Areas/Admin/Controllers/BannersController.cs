@@ -1,16 +1,17 @@
-﻿using System;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using MVCPerfectCars.Areas.Admin.Models;
+using MVCPerfectCarsData;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using MVCPerfectCars.Areas.Admin.Models;
-using MVCPerfectCarsData;
 
 namespace MVCPerfectCars.Areas.Admin.Controllers
 {
+
     [Area("Admin")]
+    
     public class BannersController : Controller
     {
         private readonly MVCPerfectCarsDbContext context;
@@ -23,10 +24,9 @@ namespace MVCPerfectCars.Areas.Admin.Controllers
             this.context = context;
             this.utilsService = utilsService;
         }
-
         public IActionResult Index()
         {
-            var model = context.Banners.ToList();
+            var model = context.Banner.ToList();
             return View(model);
         }
 
@@ -48,7 +48,7 @@ namespace MVCPerfectCars.Areas.Admin.Controllers
             utilsService.AddImage(model, new ResizeImageOptions { Width = 1920, Height = 480, Watermark = false });
 
             model.DateOfCreation = DateTime.Now;
-            context.Banners.Add(model);
+            context.Banner.Add(model);
             try
             {
                 await context.SaveChangesAsync();
@@ -64,7 +64,7 @@ namespace MVCPerfectCars.Areas.Admin.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
-            var model = await context.Banners.FindAsync(id);
+            var model = await context.Banner.FindAsync(id);
             return View(model);
         }
 
@@ -89,7 +89,7 @@ namespace MVCPerfectCars.Areas.Admin.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
-            var model = await context.Banners.FindAsync(id);
+            var model = await context.Banner.FindAsync(id);
             context.Remove(model);
             try
             {

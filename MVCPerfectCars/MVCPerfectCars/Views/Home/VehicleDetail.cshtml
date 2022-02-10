@@ -7,6 +7,13 @@
     <div class="col-12 col-md-6 p-2 border-right">
         <img src="@Model.SafeImage" class="img-fluid" />
     </div>
+    <div id="previewGallery" class="col-12 col-md-6 p-2 border-right">
+        @foreach (var vehicleImage in Model.VehicleImages)
+        {
+            <img src="@vehicleImage.Image" width="120" height="120" class="p-2 border" />
+        }
+    </div>
+
     <div class="col-12 col-md-6 p-2">
         <h2>@Model.Name</h2>
         <div>
@@ -15,19 +22,20 @@
             </a>
         </div>
         <div>
-            @Model.Modul.Name /
-            <a asp-route="category" asp-route-name="@Model.Modul.Name.ToSafeUrl()" asp-route-id="@Model.ModulId">
-                @Model.Modul.Name
+            @Model.Modul.Name
+            <a asp-route="Modul" asp-route-name="@Model.Modul.Name.ToSafeUrl()" asp-route-id="@Model.ModulId">
+
             </a>
         </div>
-      
-        <div class="p-2">
-            
-           
+        <div style="height: 70px; overflow: hidden;">
+
+            <div class="text-success h4">@Model.Price.ToString("c2") ₺</div>
         </div>
+
         <hr />
         <div class="p-2">
             @Html.Raw(Model.Description)
         </div>
     </div>
+
 </div>

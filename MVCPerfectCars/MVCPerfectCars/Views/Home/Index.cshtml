@@ -1,8 +1,47 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+<div class="container row">
+    <div id="slider" class="row mb-4" style="width: 1140px; height: 720px; max-height: 720px; overflow: overflow: hidden; ">
+        @foreach (var banner in ViewBag.Banners as IEnumerable<Banner>)
+        {
+            <div class="col-12 d-none  position-absolute" style="width: 1140px; height: 720px; max-height: 720px; overflow: hidden; ">
+                <img src="@banner.SafeImage" class="w-100" />
+            </div>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+        }
+    </div>
+   
 </div>
+
+
+<div class="row row-cols-1 row-cols-md-3">
+    @foreach (var vehicle in ViewBag.FeaturedVehicles as IEnumerable<Vehicle>)
+    {
+        <partial name="_VehicleBoxPartial" model="vehicle" />
+    }
+</div>
+
+
+
+
+
+
+
+
+@section Scripts{
+    <script>
+    $(()=>{
+        var l = $('#slider div');
+        var index = 0;
+        switchImage();
+        function switchImage(){
+            $(l).addClass('d-none');
+            $(l[index]).removeClass('d-none');
+            index++;
+            index%=l.length;
+            setTimeout(switchImage, 2000);
+        }
+    });
+    </script>
+}

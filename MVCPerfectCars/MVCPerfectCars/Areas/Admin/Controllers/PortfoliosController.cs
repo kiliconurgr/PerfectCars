@@ -40,6 +40,7 @@ namespace MVCPerfectCars.Areas.Admin.Controllers
         
         public async Task<IActionResult> Create( Portfolio portfolio)
         {
+            portfolio.DateOfCreation = DateTime.Now;
             if (ModelState.IsValid)
             {
                 portfolio.DateOfCreation = DateTime.Now;
@@ -99,7 +100,6 @@ namespace MVCPerfectCars.Areas.Admin.Controllers
             return View(portfolio);
         }
 
-        // GET: Admin/Portfolios/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             var portfolio = await _context.Portfolios.FindAsync(id);

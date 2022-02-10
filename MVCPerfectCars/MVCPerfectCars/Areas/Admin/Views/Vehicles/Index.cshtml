@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MVCPerfectCarsData.Vehicle>
+@model IEnumerable<MVCPerfectCarsData.Vehicle>
 
 @{
     ViewData["Title"] = "İlanlar";
@@ -28,7 +28,7 @@
             <th>
                 Model
             </th>
-           
+          
             <th>
                 Fiyat
             </th>
@@ -58,9 +58,11 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Modul.Name)
                 </td>
-                
+             
                 <td>
-                    @Html.DisplayFor(modelItem => item.Price)
+                    <div class="text-success">
+                    @item.Price.ToString("c2")
+                    </div>
                 </td>
 
                 <td>
