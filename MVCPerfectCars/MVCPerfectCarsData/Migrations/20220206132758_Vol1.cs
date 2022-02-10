@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MVCPerfectCarsData.Migrations
 {
-    public partial class NFS : Migration
+    public partial class Vol1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -54,7 +54,7 @@ namespace MVCPerfectCarsData.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Banner",
+                name: "Banners",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -65,7 +65,7 @@ namespace MVCPerfectCarsData.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Banner", x => x.Id);
+                    table.PrimaryKey("PK_Banners", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -487,7 +487,7 @@ namespace MVCPerfectCarsData.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Banner");
+                name: "Banners");
 
             migrationBuilder.DropTable(
                 name: "BrandPortfolio");

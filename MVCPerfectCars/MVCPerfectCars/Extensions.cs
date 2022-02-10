@@ -5,7 +5,7 @@ using X.PagedList.Web.Common;
 namespace MVCPerfectCars
 {
     public static class Extensions
-    {
+    { 
 
         public static PagedListRenderOptions PagedListRenderOptions { get
             {
