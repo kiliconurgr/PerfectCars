@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVCPerfectCarsData.Migrations
 {
     [DbContext(typeof(MVCPerfectCarsDbContext))]
-    [Migration("20220206132758_Vol1")]
+    [Migration("20220210221757_Vol1")]
     partial class Vol1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -56,7 +56,7 @@ namespace MVCPerfectCarsData.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Banners");
+                    b.ToTable("Banner");
                 });
 
             modelBuilder.Entity("MVCPerfectCarsData.Brand", b =>

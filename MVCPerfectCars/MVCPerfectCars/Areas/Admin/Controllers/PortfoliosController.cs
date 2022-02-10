@@ -40,9 +40,9 @@ namespace MVCPerfectCars.Areas.Admin.Controllers
         
         public async Task<IActionResult> Create( Portfolio portfolio)
         {
+            portfolio.DateOfCreation = DateTime.Now;
             if (ModelState.IsValid)
             {
-                portfolio.DateOfCreation = DateTime.Now;
                 _context.Add(portfolio);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -69,7 +69,7 @@ namespace MVCPerfectCars.Areas.Admin.Controllers
         
         [HttpPost]
        
-        public async Task<IActionResult> Edit(int id, Portfolio portfolio)
+        public async Task<IActionResult> Edit(int id, [Bind("Name,Id,Enabled,DateOfCreation")] Portfolio portfolio)
         {
             if (id != portfolio.Id)
             {
@@ -99,7 +99,6 @@ namespace MVCPerfectCars.Areas.Admin.Controllers
             return View(portfolio);
         }
 
-        // GET: Admin/Portfolios/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             var portfolio = await _context.Portfolios.FindAsync(id);

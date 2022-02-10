@@ -1,18 +1,14 @@
 ﻿@model MVCPerfectCarsData.Banner
 
 @{
+    ViewData["Title"] = "Edit";
 }
+<hr />
 <form method="post" enctype="multipart/form-data">
     <input type="hidden" asp-for="DateOfCreation" />
     <input type="hidden" asp-for="Image" />
     <div class="card card-default card-outline">
-        <div class="card-header">
-            <div class="card-title">
-                <i class="fa fa-pencil"></i>
-                Görsel Güncelleme
-            </div>
 
-        </div>
         <div class="card-body">
             <div class="form-row">
                 <div class="form-group col-12 col-md-6">
@@ -59,9 +55,6 @@
         </button>
     </div>
 </form>
-<div>
-    <a asp-action="Index">Listeye Geri Dön</a>
-</div>
 
 @section scripts {
     <partial name="_ValidationScriptsPartial" />
@@ -79,3 +72,6 @@
         });
     </script>
 }
+
+
+

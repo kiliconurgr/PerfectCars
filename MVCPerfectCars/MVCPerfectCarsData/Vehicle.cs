@@ -15,12 +15,17 @@ namespace MVCPerfectCarsData
     public class Vehicle : BaseEntity, IHasImage
     {
         [Display(Name = "İlan Adı")]
+        [Required(ErrorMessage = "{0} alanı boş bırakılamaz!")]
         public string Name { get; set; }
 
+
         [Display(Name = "Model Adı")]
+        [Required(ErrorMessage = "{0} alanı boş bırakılamaz!")]
         public int ModulId { get; set; }
 
+
         [Display(Name = "Marka Adı")]
+        [Required(ErrorMessage = "{0} alanı boş bırakılamaz!")]
         public int BrandId { get; set; }
 
 
@@ -33,7 +38,6 @@ namespace MVCPerfectCarsData
         [RegularExpression("^[+-]?[0-9]{1,3}(?:.?[0-9]{3})*(,[0-9]{2})?$", ErrorMessage = "Lütfen geçerli bir {0} yazınız!")]
         public string PriceText { get; set; }
 
-        [Display(Name = "Görsel")]
         public string Image { get; set; }
 
         [Display(Name = "Açıklamalar")]
@@ -52,7 +56,6 @@ namespace MVCPerfectCarsData
 
 
         [NotMapped]
-        
         public IFormFile[] ImageFiles { get; set; }
 
         [NotMapped]

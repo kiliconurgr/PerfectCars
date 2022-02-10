@@ -54,7 +54,7 @@ namespace MVCPerfectCarsData.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Banners",
+                name: "Banner",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -65,7 +65,7 @@ namespace MVCPerfectCarsData.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Banners", x => x.Id);
+                    table.PrimaryKey("PK_Banner", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -487,7 +487,7 @@ namespace MVCPerfectCarsData.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Banners");
+                name: "Banner");
 
             migrationBuilder.DropTable(
                 name: "BrandPortfolio");

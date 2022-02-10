@@ -36,6 +36,7 @@ namespace MVCPerfectCars.Controllers
             var result = await accountService.LoginAsync(model);
             if (result.Succeeded)
             {
+                
                 return Redirect("/admin");
             }
             else
