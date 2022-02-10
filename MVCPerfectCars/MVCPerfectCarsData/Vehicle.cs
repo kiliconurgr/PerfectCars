@@ -14,14 +14,22 @@ namespace MVCPerfectCarsData
    
     public class Vehicle : BaseEntity, IHasImage
     {
-
+        [Display(Name = "İlan Adı")]
+        [Required(ErrorMessage = "{0} alanı boş bırakılamaz!")]
         public string Name { get; set; }
+
+
+        [Display(Name = "Model Adı")]
+        [Required(ErrorMessage = "{0} alanı boş bırakılamaz!")]
         public int ModulId { get; set; }
 
+
+        [Display(Name = "Marka Adı")]
+        [Required(ErrorMessage = "{0} alanı boş bırakılamaz!")]
         public int BrandId { get; set; }
 
-        
 
+        [Display(Name = "Fiyat")]
         public decimal Price { get; set; }
 
         [NotMapped]

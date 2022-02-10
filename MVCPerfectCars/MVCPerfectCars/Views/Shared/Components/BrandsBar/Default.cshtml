@@ -1,10 +1,10 @@
-﻿@model IEnumerable<Brand>
+﻿ @model IEnumerable<Brand>
 
 <div class="py-4 d-flex flex-wrap justify-content-around">
     @foreach (var brand in Model)
     {
         <div class="p-4">
-            <a asp-route="brand" asp-route-name="@brand.Name.ToSafeUrl()" asp-route-id="@brand.Id">
+            <a  asp-route="brand" asp-route-name="@brand.Name.ToSafeUrl()" asp-route-id="@brand.Id">
                 <img src="@brand.SafeImage" height="60" />
             </a>
         </div>

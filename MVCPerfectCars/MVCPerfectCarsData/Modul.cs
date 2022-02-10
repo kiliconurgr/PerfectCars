@@ -13,16 +13,21 @@ namespace MVCPerfectCarsData
 
     {
         [Display(Name = "Model")]
+        
+        
         public string Name { get; set; }
 
         [Display(Name = "Marka")]
+       
         public int BrandId { get; set; }
 
         [Display(Name = "Araç Tipi")]
+        
         public string VehicleType { get; set; }
 
 
         [Display(Name = "Marka")]
+       
         public virtual Brand Brand { get; set; }
 
 

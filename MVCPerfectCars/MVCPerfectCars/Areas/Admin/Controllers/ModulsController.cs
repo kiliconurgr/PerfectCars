@@ -20,40 +20,40 @@ namespace MVCPerfectCars.Areas.Admin.Controllers
             _context = context;
         }
 
-        // GET: Admin/Moduls
+
         public async Task<IActionResult> Index()
         {
-            var mVCPerfectCarsDbContext = _context.Moduls.Include(m => m.Brand);
+            var mVCPerfectCarsDbContext = _context.Moduls.Include(m => m.Brand).OrderBy(p=>p.Brand.Name).ThenBy(p=>p.Name);
             return View(await mVCPerfectCarsDbContext.ToListAsync());
         }
 
-       
 
-        // GET: Admin/Moduls/Create
-        public IActionResult Create()
+
+
+        public async Task<IActionResult> Create()
         {
             ViewData["BrandId"] = new SelectList(_context.Brands, "Id", "Name");
-            return View();
+            var model = new Modul { Enabled = true };
+            return View(model);
         }
 
-        // POST: Admin/Moduls/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,BrandId,VehicleType,Id,Enabled,DateOfCreation")] Modul modul)
+
+        public async Task<IActionResult> Create(Modul modul)
         {
+            modul.DateOfCreation = DateTime.Now;
             if (ModelState.IsValid)
             {
                 _context.Add(modul);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
+
             }
             ViewData["BrandId"] = new SelectList(_context.Brands, "Id", "Name", modul.BrandId);
             return View(modul);
         }
 
-        // GET: Admin/Moduls/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -70,12 +70,8 @@ namespace MVCPerfectCars.Areas.Admin.Controllers
             return View(modul);
         }
 
-        // POST: Admin/Moduls/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Name,BrandId,VehicleType,Id,Enabled,DateOfCreation")] Modul modul)
+        public async Task<IActionResult> Edit(int id, Modul modul)
         {
             if (id != modul.Id)
             {
@@ -89,6 +85,7 @@ namespace MVCPerfectCars.Areas.Admin.Controllers
                     _context.Update(modul);
                     await _context.SaveChangesAsync();
                 }
+               
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!ModulExists(modul.Id))
@@ -99,6 +96,8 @@ namespace MVCPerfectCars.Areas.Admin.Controllers
                     {
                         throw;
                     }
+
+
                 }
                 return RedirectToAction(nameof(Index));
             }
@@ -106,7 +105,6 @@ namespace MVCPerfectCars.Areas.Admin.Controllers
             return View(modul);
         }
 
-        // GET: Admin/Moduls/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             var modul = await _context.Moduls.FindAsync(id);
@@ -122,7 +120,7 @@ namespace MVCPerfectCars.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-     
+
 
         private bool ModulExists(int id)
         {

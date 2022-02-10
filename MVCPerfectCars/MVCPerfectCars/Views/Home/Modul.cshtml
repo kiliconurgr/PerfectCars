@@ -1,0 +1,15 @@
+﻿@model Modul
+@{ 
+    ViewData["Title"] = Model.Name;
+}
+<h2>
+    @Model.Name
+</h2>
+
+<div class="row row-cols-1 row-cols-md-3">
+    @foreach (var vehicle in Model.Vehicles
+        )
+        {
+        <partial name="_VehicleBoxPartial" model="vehicle" />
+        }
+</div>

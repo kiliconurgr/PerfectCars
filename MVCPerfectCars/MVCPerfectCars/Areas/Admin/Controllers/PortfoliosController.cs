@@ -38,8 +38,9 @@ namespace MVCPerfectCars.Areas.Admin.Controllers
        
         [HttpPost]
         
-        public async Task<IActionResult> Create([Bind("Name,Id,Enabled,DateOfCreation")] Portfolio portfolio)
+        public async Task<IActionResult> Create( Portfolio portfolio)
         {
+            portfolio.DateOfCreation = DateTime.Now;
             if (ModelState.IsValid)
             {
                 _context.Add(portfolio);
@@ -98,7 +99,6 @@ namespace MVCPerfectCars.Areas.Admin.Controllers
             return View(portfolio);
         }
 
-        // GET: Admin/Portfolios/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             var portfolio = await _context.Portfolios.FindAsync(id);

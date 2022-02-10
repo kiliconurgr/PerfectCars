@@ -67,7 +67,7 @@ namespace MVCPerfectCars
                 endpoints
                    .MapControllerRoute(
                        name: "vehicle",
-                       pattern: "{name}-p-{id}.html",
+                       pattern: "{name}-v-{id}.html",
                        defaults: new { controller = "Home", action = "VehicleDetail" }
                        );
                 endpoints
@@ -75,6 +75,12 @@ namespace MVCPerfectCars
                    name: "brand",
                    pattern: "{name}-b-{id}.html",
                    defaults: new { controller = "Home", action = "Brands" }
+                   );
+                endpoints
+                .MapControllerRoute(
+                   name: "modul",
+                   pattern: "{name}-m-{id}.html",
+                   defaults: new { controller = "Home", action = "Modul" }
                    );
                 endpoints.MapControllerRoute(
                      name: "areas",
