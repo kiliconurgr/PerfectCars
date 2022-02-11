@@ -36,6 +36,15 @@
         <div class="p-2">
             @Html.Raw(Model.Description)
         </div>
+
+        <div>
+            @foreach (var portfolios in ViewBag.SelectedPortfolios as IEnumerable<Portfolio>)
+            {
+                <div>
+                    <p>@portfolios.Name</p>
+                </div>
+            }
+        </div>
     </div>
 
 </div>

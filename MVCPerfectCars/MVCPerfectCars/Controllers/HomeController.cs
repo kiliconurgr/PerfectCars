@@ -28,6 +28,7 @@ namespace MVCPerfectCars.Controllers
 
         public async Task<IActionResult> Index()
         {
+            ViewBag.SelectedPortfolios = await context.Vehicles.Include(p => p.Portfolios).Where(p => p.Enabled).OrderBy(p => p.Name).ToListAsync();
             ViewBag.FeaturedVehicles = await context.Vehicles.Include(p => p.Modul).Include(p => p.Brand).Where(p => p.Enabled).OrderBy(p => Guid.NewGuid()).Take(9).ToListAsync();
             ViewBag.Banners = await context.Banner.Where(p => p.Enabled).ToListAsync();
             return View();
