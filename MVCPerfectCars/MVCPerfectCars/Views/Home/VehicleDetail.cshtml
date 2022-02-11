@@ -18,8 +18,9 @@
         <h2>@Model.Name</h2>
         <div>
             <a asp-route="brand" asp-route-name="@Model.Brand.Name.ToSafeUrl()" asp-route-id="@Model.BrandId">
-                @Model.Brand.Name
+                @Model.Brand.Name / @Model.Id
             </a>
+
         </div>
         <div>
             @Model.Modul.Name
@@ -36,6 +37,8 @@
         <div class="p-2">
             @Html.Raw(Model.Description)
         </div>
+
+       
     </div>
 
 </div>

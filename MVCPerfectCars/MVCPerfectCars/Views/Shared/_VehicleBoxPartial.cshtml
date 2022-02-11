@@ -3,20 +3,22 @@
     <div class="card">
         <a asp-route="vehicle" asp-route-name="@Model.Name.ToSafeUrl()" asp-route-id="@Model.Id">
 
-            <img src="@Model.SafeImage" class="card-img-top" alt="@Model.Name">
+            <img src="@Model.SafeImage" class="card-img-top" alt="@Model.Name" height="240px">
         </a>
         <div class="card-body">
             <h5 class="card-title" style="height: 50px; overflow: hidden;">@Model.Name</h5>
             <div>
                 <a asp-route="brand" asp-route-name="@Model.Brand.Name.ToSafeUrl()" asp-route-id="@Model.BrandId">
-                    @Model.Brand.Name / @Model.Modul.Name
+                    @Model.Brand.Name / @Model.Modul.Name 
                 </a>
+                  
             </div>
             <div style="height: 70px; overflow: hidden;">
 
                 <div class="text-success h4"> @Model.Price.ToString("c2") </div>
             </div>
             <div class="text-center p-2">
+                
                 
                 <a class="btn btn-primary" asp-route="vehicle" asp-route-name="@Model.Name.ToSafeUrl()" asp-route-id="@Model.Id">
                     <i class="fa fa-search"></i>

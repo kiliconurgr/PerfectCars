@@ -1,17 +1,15 @@
 ﻿@model MVCPerfectCarsData.Modul
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Model Güncelleme";
 }
 
-<h1>Edit</h1>
 
-<h4>Modul</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
-            <input type="hidden" asp-for="DateOfCreation"/>
+            <input type="hidden" asp-for="DateOfCreation" />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
@@ -25,7 +23,13 @@
             </div>
             <div class="form-group">
                 <label asp-for="VehicleType" class="control-label"></label>
-                <input asp-for="VehicleType" class="form-control" />
+                <select asp-for="VehicleType" class="form-control">
+                    <option>Lütfen araç Tipi Seçiniz!</option>
+                    <option>SUV</option>
+                    <option>OTOMOBİL</option>
+                    <option>MINIBUS</option>
+                    <option>MOTOR</option>
+                </select>
                 <span asp-validation-for="VehicleType" class="text-danger"></span>
             </div>
             <input type="hidden" asp-for="Id" />
